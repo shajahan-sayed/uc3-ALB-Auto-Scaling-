@@ -206,7 +206,7 @@ data "aws_ami" "ubuntu" {
 }
 
 
-resource "auto_scaling_group" "auto_lbs" {
+resource "aws_autoscaling_group" "auto_lbs" {
   max_size = var.max_size
   min_size = var.min_size
   desired_capacity = var.desired_capacity
