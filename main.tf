@@ -73,18 +73,11 @@ resource "aws_route" "alb_rt" {
 resource "aws_route_table_association" "alb_as1" {
    subnet_id = aws_subnet.pub2.id
    route_table_id = aws_route_table.alb_route.id
-
-   tags = {
-     Name = "alb_as"
-    }
   }
   resource "aws_route_table_association" "alb_as2" {
    subnet_id = aws_subnet.pub2.id
    route_table_id = aws_route_table.alb_route.id
 
-   tags = {
-     Name = "alb_as"
-    }
   }
 
 resource "aws_security_group" "alb_sg" {
@@ -111,7 +104,7 @@ resource "aws_security_group" "alb_sg" {
        }
     }
 resource "aws_security_group" "ec_sg" {
-    vpc_id = aws_vpc.vp_alb.id
+    vpc_id = aws_vpc.vpc_alb.id
 
     ingress {
       from_port = 80
@@ -226,7 +219,6 @@ resource "aws_autoscaling_group" "auto_lbs" {
     
   
 resource "aws_lb" "app_tg" {
-  protocol = "HTTP" 
   vpc_id = aws_vpc.vpc_alb.id
 
   tags = {
@@ -237,7 +229,7 @@ resource "aws_lb" "app_tg" {
 resource "aws_lb_target_group" "app_tg" {
   port     = 80
   protocol = "HTTP"
-  vpc_id   = aws_vpc.main.id
+  vpc_id   = aws_vpc.vpc_alb.id
 
   tags = {
     Name = "app_tg"
