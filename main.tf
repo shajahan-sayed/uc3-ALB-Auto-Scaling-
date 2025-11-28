@@ -190,13 +190,19 @@ resource "aws_launch_template" "app" {
 
 data "aws_ami" "ubuntu" {
   most_recent = true
-  owners      = ["077536343453"] # Canonical
+  owners      = ["099720109477"]  # Canonical official Ubuntu owner ID
 
   filter {
-    name   = "lbs_auto"
+    name   = "name"
     values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
   }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 }
+
 
 
 resource "aws_autoscaling_group" "auto_lbs" {
