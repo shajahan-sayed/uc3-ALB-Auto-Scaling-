@@ -56,7 +56,7 @@ variable "availability_az6" {
   type = string
   default = "ap-southeast-2a"
 }
-variable "availability_az2" {
+variable "availability_az7" {
   type = string
   default = "ap-southeast-2b"
 }
