@@ -161,6 +161,14 @@ resource "aws_launch_template" "app" {
   image_id = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
 
+  block_device_mappings {
+  device_name = "/dev/sda1"
+  ebs {
+      volume_size = 20
+    }
+  }
+
+
 
   user_data = base64encode(<<EOF
   #!/bin/bash
@@ -186,13 +194,6 @@ resource "aws_launch_template" "app" {
     associate_public_ip_address = true
   }
 }
-
-  block_device_mappings {
-    device_name = "/dev/sda1"
-    ebs {
-      volume_size = 20
-    }
-  }
 
 data "aws_ami" "ubuntu" {
   most_recent = true
