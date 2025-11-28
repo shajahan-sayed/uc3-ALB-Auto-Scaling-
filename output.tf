@@ -7,5 +7,5 @@ output "rds_endpoint" {
 }
 
 output "asg_name" {
-  value = aws_autoscaling_group.asg.name
+  value = aws_autoscaling_group.auto_lbs.name
 }
