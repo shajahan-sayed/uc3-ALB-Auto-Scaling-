@@ -70,7 +70,7 @@ resource "aws_route" "alb_rt" {
 
 }
 
-resource "aws_association_route_table" "alb_as1" {
+resource "aws_route_table_association" "alb_as1" {
    subnet_id = aws_subnet.pub2.id
    route_table_id = aws_route_table.alb_route.id
 
@@ -78,7 +78,7 @@ resource "aws_association_route_table" "alb_as1" {
      Name = "alb_as"
     }
   }
-  resource "aws_association_route_table" "alb_as2" {
+  resource "aws_route_table_association" "alb_as2" {
    subnet_id = aws_subnet.pub2.id
    route_table_id = aws_route_table.alb_route.id
 
@@ -88,7 +88,7 @@ resource "aws_association_route_table" "alb_as1" {
   }
 
 resource "aws_security_group" "alb_sg" {
-   vpc_id = aws_vpx.vpc_alb.id
+   vpc_id = aws_vpc.vpc_alb.id
    description = "allow http and ssh"
 
      ingress {
@@ -110,7 +110,7 @@ resource "aws_security_group" "alb_sg" {
         Name = "alb-sg"
        }
     }
-resource "aws_security_group" "ec-sg" {
+resource "aws_security_group" "ec_sg" {
     vpc_id = aws_vpc.vp_alb.id
 
     ingress {
@@ -128,17 +128,17 @@ resource "aws_security_group" "ec-sg" {
     }
 
     tags = {
-        Name = "ec-sg"
+        Name = "ec_sg"
     }
   }
-resource "aws_security_group" "db-sg" {
+resource "aws_security_group" "db_sg" {
     vpc_id = aws_vpc.vp_alb.id
 
     ingress {
       from_port = 3306
       to_port = 3306
       protocol = "tcp"
-      security_groups = [aws_security_group.ec-sg.id]
+      security_groups = [aws_security_group.ec_sg.id]
     }
 
     egress {
@@ -149,7 +149,7 @@ resource "aws_security_group" "db-sg" {
     }
 
     tags = {
-        Name = "db-sg"
+        Name = "db_sg"
     }
   }
 
@@ -190,17 +190,17 @@ resource "aws_launch_template" "app" {
   )
 
   network_interfaces {
-    security_groups             = [aws_security_group.ec2_sg.id]
+    security_groups             = [aws_security_group.ec_sg.id]
     associate_public_ip_address = true
   }
 }
 
 data "aws_ami" "ubuntu" {
   most_recent = true
-  owners      = ["077536343453"]  # Canonical official Ubuntu owner ID
+  owners      = ["077536343453"] # Canonical
 
   filter {
-    name   = "lbs-auto"
+    name   = "lbs_auto"
     values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
   }
 }
@@ -226,7 +226,6 @@ resource "aws_autoscaling_group" "auto_lbs" {
     
   
 resource "aws_lb" "app_tg" {
-  port = 80
   protocol = "HTTP" 
   vpc_id = aws_vpc.vpc_alb.id
 
@@ -275,7 +274,7 @@ resource "aws_db_instance" "mysql1" {
    password                = var.db_password
    multi_az                = true
    vpc_security_group_ids  = [aws_security_group.db_sg.id]
-   db_subnet_group_name    = aws_db_subnet_group.db_subnets.name
+   db_subnet_group_name    = aws_db_subnet_group.mysql1.name
 }
      
     
