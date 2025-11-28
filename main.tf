@@ -218,7 +218,7 @@ resource "aws_autoscaling_group" "auto_lbs" {
 }
     
   
-rresource "aws_lb" "app" {
+resource "aws_lb" "app" {
   name               = "app-alb"
   load_balancer_type = "application"
   subnets            = [
@@ -244,6 +244,7 @@ resource "aws_lb_target_group" "app_tg" {
     Name = "app_tg"
   }
 }
+
 
 resource "aws_lb_listener" "http" {
    load_balancer_arn = aws_lb.app_tg.id
