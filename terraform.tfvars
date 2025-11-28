@@ -11,8 +11,8 @@ pub2_cidr = "10.0.2.0/24"
 private1_cidr = "10.0.3.0/24"
 private2_cidr = "10.0.4.0/24"
 
-availability_az1 = "ap-southeast-2a"
-availability_az1 = "ap-southeast-2b"
+availability_az6 = "ap-southeast-2a"
+availability_az7 = "ap-southeast-2b"
 
 db_username = "admin"
 db_password = "shaju123"
