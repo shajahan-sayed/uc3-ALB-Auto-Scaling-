@@ -52,7 +52,7 @@ variable "private2_cidr" {
   type = string
   default = "10.0.4.0/24"
 }
-variable "availability_az1" {
+variable "availability_az6" {
   type = string
   default = "ap-southeast-2a"
 }
