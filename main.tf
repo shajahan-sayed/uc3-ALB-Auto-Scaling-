@@ -125,7 +125,7 @@ resource "aws_security_group" "ec_sg" {
     }
   }
 resource "aws_security_group" "db_sg" {
-    vpc_id = aws_vpc.vp_alb.id
+    vpc_id = aws_vpc.vpc_alb.id
 
     ingress {
       from_port = 3306
@@ -218,13 +218,22 @@ resource "aws_autoscaling_group" "auto_lbs" {
 }
     
   
-resource "aws_lb" "app_tg" {
-  vpc_id = aws_vpc.vpc_alb.id
+rresource "aws_lb" "app" {
+  name               = "app-alb"
+  load_balancer_type = "application"
+  subnets            = [
+    aws_subnet.pub1.id,
+    aws_subnet.pub2.id
+  ]
+  security_groups = [aws_security_group.alb_sg.id]
+
+  enable_deletion_protection = false
 
   tags = {
-    Name = "app_tg"
+    Name = "app-alb"
   }
 }
+
 
 resource "aws_lb_target_group" "app_tg" {
   port     = 80
