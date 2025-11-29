@@ -75,7 +75,7 @@ resource "aws_route_table_association" "alb_as1" {
    route_table_id = aws_route_table.alb_route.id
   }
   resource "aws_route_table_association" "alb_as2" {
-   subnet_id = aws_subnet.pub2.id
+   subnet_id = aws_subnet.pub1.id
    route_table_id = aws_route_table.alb_route.id
 
   }
