@@ -3,7 +3,7 @@ output "load_balancer_dns" {
 }
 
 output "rds_endpoint" {
-  value = aws_db_instance.mysql1.endpoint
+  value = aws_db_instance.mysql2.endpoint
 }
 
 output "asg_name" {
