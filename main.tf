@@ -280,7 +280,7 @@ resource "aws_db_instance" "mysql2" {
    db_name                 = "ecommerce"
    username                = var.db_username
    password                = var.db_password
-   multi_az                = true
+   multi_az                = false
    
    vpc_security_group_ids  = [aws_security_group.db_sg.id]
    db_subnet_group_name    = aws_db_subnet_group.mysql2.name
