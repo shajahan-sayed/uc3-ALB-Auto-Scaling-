@@ -263,7 +263,7 @@ resource "aws_lb_listener" "http" {
   }
 }
 
-resource "aws_db_subnet_group" "mysql1" {
+resource "aws_db_subnet_group" "mysql2" {
    subnet_ids = [
                 aws_subnet.private1.id,
                 aws_subnet.private2.id
@@ -273,7 +273,7 @@ resource "aws_db_subnet_group" "mysql1" {
    }
 }
 
-resource "aws_db_instance" "mysql1" {
+resource "aws_db_instance" "mysql2" {
    engine = "mysql"
    instance_class = "db.t3.micro"
    allocated_storage       = 20
