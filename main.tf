@@ -283,7 +283,7 @@ resource "aws_db_instance" "mysql2" {
    multi_az                = true
    skip_final_snapshot = true
    vpc_security_group_ids  = [aws_security_group.db_sg.id]
-   db_subnet_group_name    = aws_db_subnet_group.mysql1.name
+   db_subnet_group_name    = aws_db_subnet_group.mysql2.name
 }
      
     
